@@ -1,3 +1,0 @@
-https://www.hello.com
-https://www.hello.com/index.html
-https://www.hello.com/index_pt.html

@@ -1,0 +1,17 @@
+ERROR REPORT
+==================================================
+Timestamp: 2025-12-29 19:59:28
+
+Error Message:
+HTML harvesting failed with exception: Received 403 Forbidden status for http://smileforeveratlanta.com
+
+Exception Type: RuntimeError
+
+Traceback:
+Traceback (most recent call last):
+  File "/home/runner/work/SiteSlayer/SiteSlayer/web_scraper/main.py", line 99, in execute
+    html_file = await harvest_html(target_url, config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/SiteSlayer/SiteSlayer/web_scraper/harvester/harvester.py", line 62, in harvest_html
+    raise RuntimeError(error_msg)
+RuntimeError: Received 403 Forbidden status for http://smileforeveratlanta.com
