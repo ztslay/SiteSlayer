@@ -6,7 +6,6 @@ import os
 from pydantic import BaseModel
 from openai import AsyncOpenAI
 from utils.logger import setup_logger
-from scraper.link_rewriter import clean_and_filter_links
 
 PREVIEW_LENGTH = 100000  # Length of content preview to send to AI
 
@@ -51,7 +50,8 @@ async def rank_links(content: str, target_url: str, config):
 - Only return URLs that contain html or text content of some sort (e.g. no images, raw data, or complex document types like pdfs or word documents).
 - Don't return urls with fragments like https://example.com#fragment.
 - Return only unique content - for example https://www.hello.com/index.html and https://www.hello.com are the same.
-- Don't return {target_url}.
+- Don't return {target_url} (we already retrieved the content for this url).
+- Prefer urls that are within the same domain as {target_url} unless it is obvious that they are relevant to the content of {target_url}.
 
 Return a list of full URL strings."""
 
@@ -59,7 +59,7 @@ Return a list of full URL strings."""
         completion = await client.chat.completions.parse(
             model=config.ai_model,
             messages=[
-                {"role": "system", "content": "You are a web content analysis assistant. Extract only the most relevant URLs from the content. Limit the number of URLs to 15. Return the urls in order of relevance."},
+                {"role": "system", "content": "You are a web content analysis assistant. Extract only the most relevant URLs from the content. Limit the number of URLs to 15 (but you can return less if there are not enough relevant urls). Return the urls in order of relevance."},
                 {"role": "user", "content": prompt}
             ],
             response_format=URLList
@@ -68,11 +68,8 @@ Return a list of full URL strings."""
         parsed_response = completion.choices[0].message.parsed
         urls = parsed_response.urls if parsed_response else []
                
-        # Filter URLs using the same logic as scrape_homepage
-        filtered_urls = clean_and_filter_links(urls, target_url, config)
-        
-        logger.info(f"AI extracted {len(urls)} URLs, {len(filtered_urls)} after filtering")
-        return filtered_urls
+        logger.info(f"AI extracted {len(urls)} URLs")
+        return urls
         
     except Exception as e:
         logger.error(f"Error ranking links with AI: {str(e)}", exc_info=True)

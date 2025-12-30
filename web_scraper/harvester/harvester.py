@@ -8,8 +8,9 @@ from bs4 import BeautifulSoup
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright._impl._errors import Error as PlaywrightError
 from utils.logger import setup_logger
-from utils.fetch import get_browser_instance
-from config import USER_AGENT, sanitize_domain
+from utils.fetch import get_browser_instance, create_browser_context, navigate_with_fallbacks
+from utils.markdown_utils import clean_soup
+from config import sanitize_domain
 
 logger = setup_logger(__name__)
 
@@ -41,11 +42,8 @@ async def harvest_html(url, config):
     browser = pool['browser']
     
     try:
-        # Create context with user agent (isolates cookies/cache)
-        context = await browser.new_context(
-            user_agent=USER_AGENT,
-            viewport={'width': 1920, 'height': 1080}
-        )
+        # Create context with user agent and SSL error bypass
+        context = await create_browser_context(browser)
         
         # Create page and navigate
         page = await context.new_page()
@@ -54,33 +52,37 @@ async def harvest_html(url, config):
         effective_timeout = 4 if getattr(config, 'timeout_reduced', False) else getattr(config, 'timeout', 15)
         
         logger.debug("Loading page with Playwright...")
-        try:
-            response = await page.goto(url, wait_until='networkidle', timeout=effective_timeout * 1000)
-            if response and response.status == 403:
-                error_msg = f"Received 403 Forbidden status for {url}"
-                logger.error(error_msg)
-                raise RuntimeError(error_msg)
-            logger.debug("Page loaded successfully")
-        except PlaywrightTimeoutError as e:
-            timeout_occurred = True
-            # Mark config to use reduced timeout for subsequent pages
-            if not getattr(config, 'timeout_reduced', False):
-                config.timeout_reduced = True
-                logger.info(f"Site appears slow - reducing timeout to 4 seconds for remaining pages")
-            logger.warning(f"Timeout waiting for networkidle on {url}: {str(e)}")
-            logger.info("Attempting to capture partial HTML content that has already loaded...")
-            # Don't re-raise - we'll try to get whatever content is available
+        response, url, timeout_occurred = await navigate_with_fallbacks(
+            page, url, effective_timeout, config, raise_on_403=True
+        )
         
         # Get the rendered HTML (even if timeout occurred)
-        try:
-            html_content = await page.content()
-            if timeout_occurred:
-                logger.warning(f"Retrieved partial HTML content: {len(html_content)} characters (timeout occurred)")
-            else:
-                logger.debug(f"Retrieved HTML content: {len(html_content)} characters")
-        except Exception as e:
-            logger.error(f"Failed to retrieve HTML content even after timeout: {str(e)}", exc_info=True)
-            raise  # If we can't even get the content, that's a real failure
+        # Retry logic to handle pages that are still navigating
+        html_content = None
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                # Wait a bit for page to settle (especially important for dynamic pages like Google Maps)
+                if attempt > 0:
+                    await page.wait_for_timeout(500)  # Wait 500ms between retries
+                html_content = await page.content()
+                if timeout_occurred:
+                    logger.warning(f"Retrieved partial HTML content: {len(html_content)} characters (timeout occurred)")
+                else:
+                    logger.debug(f"Retrieved HTML content: {len(html_content)} characters")
+                break  # Success, exit retry loop
+            except Exception as e:
+                error_msg = str(e)
+                if "Unable to retrieve content because the page is navigating" in error_msg:
+                    if attempt < max_retries - 1:
+                        logger.debug(f"Page still navigating, retrying ({attempt + 1}/{max_retries})...")
+                        continue
+                    else:
+                        logger.error(f"Failed to retrieve HTML content after {max_retries} attempts: {error_msg}")
+                        raise
+                else:
+                    logger.error(f"Failed to retrieve HTML content: {error_msg}", exc_info=True)
+                    raise  # If we can't even get the content, that's a real failure
         
     except PlaywrightError as e:
         error_msg = str(e)

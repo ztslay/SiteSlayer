@@ -294,76 +294,100 @@ async def serve_raw_file(site_path: str):
 @app.get("/")
 async def root():
     """Root endpoint listing all available websites."""
-    # Build a mapping of sanitized domain names to their order in sites_to_scrape.txt
-    order_map = {}
+    # Track which sites we've processed from sites_to_scrape.txt
+    processed_sites = set()
+    links_html = ""
+    
+    # First, process sites from sites_to_scrape.txt
     if SITES_TO_SCRAPE_FILE.exists():
         with open(SITES_TO_SCRAPE_FILE, 'r', encoding='utf-8') as f:
-            for index, line in enumerate(f):
+            for line in f:
+                # Remove comments (everything after #)
+                if '#' in line:
+                    line = line[:line.index('#')]
                 url = line.strip()
-                # Skip empty lines and comments
-                if not url or url.startswith('#'):
+                # Skip empty lines
+                if not url:
                     continue
+                
                 # Ensure URL has proper scheme for sanitize_domain
                 if not url.startswith(('http://', 'https://')):
                     url = f"https://{url}"
+                
                 sanitized = sanitize_domain(url)
-                order_map[sanitized] = index
+                processed_sites.add(sanitized)
+                
+                # Check if this site exists in the sites directory
+                site_dir = SITES_DIR / sanitized
+                if site_dir.exists() and site_dir.is_dir():
+                    # Site exists - use same link rules as before
+                    index_file = site_dir / "index.html"
+                    has_index = index_file.exists()
+                    error_file = site_dir / "error.txt"
+                    has_error = error_file.exists()
+                    email_file = site_dir / "email.txt"
+                    has_email = email_file.exists()
+                    
+                    escaped_site_name = html.escape(sanitized, quote=True)
+                    
+                    # If site has error.txt, don't link to the site, just show the name
+                    if has_error:
+                        site_display = sanitized
+                        error_link = f' <a href="/raw/{escaped_site_name}/error.txt">(error.txt)</a>'
+                        links_html += f'    <li>{site_display}{error_link}</li>\n'
+                    else:
+                        # Normal site with index.html
+                        site_display = f'<a href="/site/{escaped_site_name}">{sanitized}</a>'
+                        email_link = ""
+                        if has_email:
+                            email_link = f' <a href="/raw/{escaped_site_name}/email.txt">(email.txt)</a>'
+                        links_html += f'    <li>{site_display}{email_link}</li>\n'
+                else:
+                    # Site doesn't exist - show with MISSING
+                    escaped_site_name = html.escape(sanitized, quote=True)
+                    links_html += f'    <li>{escaped_site_name} <strong style="font-size: 1.2em;">MISSING</strong></li>\n'
     
-    # Scan the sites directory for subdirectories
-    websites_dict = {}
+    # Now, find all sites in the directory that are NOT in sites_to_scrape.txt
+    unlisted_sites = []
     if SITES_DIR.exists() and SITES_DIR.is_dir():
         for item in SITES_DIR.iterdir():
             if item.is_dir():
                 site_name = item.name
-                # Check if it has an index.html file
+                # Skip if we already processed this site
+                if site_name in processed_sites:
+                    continue
+                
+                # Check if it has an index.html file or error.txt
                 index_file = item / "index.html"
                 has_index = index_file.exists()
-                # Check if error.txt exists
                 error_file = item / "error.txt"
                 has_error = error_file.exists()
-                # Check if email.txt exists
-                email_file = item / "email.txt"
-                has_email = email_file.exists()
                 
                 # Include sites that have either index.html or error.txt
                 if has_index or has_error:
-                    websites_dict[site_name] = (site_name, has_index, has_error, has_email)
+                    email_file = item / "email.txt"
+                    has_email = email_file.exists()
+                    unlisted_sites.append((site_name, has_index, has_error, has_email))
     
-    # Sort websites: first by order in sites_to_scrape.txt, then alphabetically for those not in the list
-    websites = []
-    websites_not_in_list = []
+    # Sort unlisted sites alphabetically
+    unlisted_sites.sort(key=lambda x: x[0])
     
-    for site_name, site_data in websites_dict.items():
-        if site_name in order_map:
-            websites.append((order_map[site_name], site_data))
-        else:
-            websites_not_in_list.append(site_data)
-    
-    # Sort by order index
-    websites.sort(key=lambda x: x[0])
-    # Extract just the site data
-    websites = [site_data for _, site_data in websites]
-    # Add sites not in the list, sorted alphabetically
-    websites_not_in_list.sort(key=lambda x: x[0])
-    websites.extend(websites_not_in_list)
-    
-    # Generate HTML with clickable links
-    links_html = ""
-    for site_name, has_index, has_error, has_email in websites:
+    # Add unlisted sites with UNLISTED label
+    for site_name, has_index, has_error, has_email in unlisted_sites:
         escaped_site_name = html.escape(site_name, quote=True)
         
         # If site has error.txt, don't link to the site, just show the name
         if has_error:
             site_display = site_name
             error_link = f' <a href="/raw/{escaped_site_name}/error.txt">(error.txt)</a>'
-            links_html += f'    <li>{site_display}{error_link}</li>\n'
+            links_html += f'    <li>{site_display}{error_link} <strong style="font-size: 1.2em;">UNLISTED</strong></li>\n'
         else:
             # Normal site with index.html
             site_display = f'<a href="/site/{escaped_site_name}">{site_name}</a>'
             email_link = ""
             if has_email:
                 email_link = f' <a href="/raw/{escaped_site_name}/email.txt">(email.txt)</a>'
-            links_html += f'    <li>{site_display}{email_link}</li>\n'
+            links_html += f'    <li>{site_display}{email_link} <strong style="font-size: 1.2em;">UNLISTED</strong></li>\n'
     
     html_content = f"""<!DOCTYPE html>
 <html>

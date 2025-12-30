@@ -14,6 +14,7 @@ RUN uv sync --frozen --no-dev
 # Copy the application code
 COPY website_server/ ./website_server/
 COPY sites/ ./sites/
+COPY sites_to_scrape.txt ./
 
 # Expose port (fly.io will set PORT env var)
 EXPOSE 8080

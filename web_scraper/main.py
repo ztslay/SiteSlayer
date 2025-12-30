@@ -18,6 +18,7 @@ from scraper.crawler import crawl_urls
 from scraper.ai_link_ranker import rank_links
 from utils.logger import setup_logger
 from utils.fetch import cleanup_browser_pool
+from utils.markdown_utils import remove_duplicate_lines
 
 from email_writer import EmailWriter
 
@@ -154,17 +155,9 @@ async def execute(target_url):
         print("="*50)
         print(f"HTML file: {html_file or 'N/A'}")
         print(f"Total pages scraped: {len(crawl_results)}")
-        print(f"Temporary directory: {config.output_dir}")
         if content_file:
             print(f"Aggregated content: {content_file}")
         print("="*50 + "\n")
-        
-        # Clean up temporary directory
-        logger.info("Cleaning up temporary files...")
-        if config.cleanup_temp_dir():
-            logger.info("Temporary directory cleaned up successfully")
-        else:
-            logger.warning("Failed to clean up temporary directory")
 
     except KeyboardInterrupt:
         logger.info("\nProcess interrupted by user (Ctrl+C)")
@@ -175,21 +168,11 @@ async def execute(target_url):
                 logger.info(f"Removed incomplete site directory: {site_dir}")
         except Exception as cleanup_error:
             logger.warning(f"Failed to remove site directory: {str(cleanup_error)}")
-        # Clean up temp directory on interrupt
-        try:
-            config.cleanup_temp_dir()
-        except Exception as cleanup_error:
-            logger.warning(f"Failed to clean up temp directory: {str(cleanup_error)}")
         raise  # Re-raise to stop processing
     except Exception as e:
         error_msg = f"Error during processing: {str(e)}"
         logger.error(error_msg, exc_info=True)
         write_error_to_file(site_dir, error_msg, e)
-        # Clean up temp directory on error
-        try:
-            config.cleanup_temp_dir()
-        except Exception as cleanup_error:
-            write_error_to_file(site_dir, f"Error during cleanup after processing error: {str(cleanup_error)}", cleanup_error)
 
 
 async def crawl_site(target_url, domain, config):
@@ -263,15 +246,19 @@ async def crawl_site(target_url, domain, config):
         
         # Add other pages' content
         for result in crawl_results:
-            if result and 'content' in result:
-                aggregated_content.append(result['content'])
-        
+            if result:
+                aggregated_content.append(f"\n---\n({result['url']})\n\n{result['content']}")
+
+        logger.info(f"Aggregated {len(aggregated_content)} pages (1 homepage + {len(crawl_results)} other pages)")
+        aggregated_content = '\n'.join(aggregated_content)
+        aggregated_content = remove_duplicate_lines(aggregated_content)
+
         # Write to content.md
         with open(content_file, 'w', encoding='utf-8') as f:
-            f.write('\n\n---\n\n'.join(aggregated_content))
+            f.write(aggregated_content)
         
         logger.info(f"Successfully created content.md at: {content_file}")
-        logger.info(f"Aggregated {len(aggregated_content)} pages (1 homepage + {len(crawl_results)} other pages)")
+        
         
     except Exception as e:
         logger.error(f"Error writing content.md: {str(e)}", exc_info=True)
@@ -334,9 +321,26 @@ def main():
     
     # Get URLs from command line or sites_to_scrape.txt
     urls = []
+    urls_from_command_line = False
     if len(sys.argv) > 1:
         # Use command line arguments as URLs
         urls = [url.strip() for url in sys.argv[1:] if url.strip()]
+
+        # Remove site directories for command line URLs
+        sites_dir = Path('sites')
+        if not sites_dir.exists() or not sites_dir.is_dir():
+            raise FileNotFoundError(f"Sites directory does not exist: {sites_dir}")
+        for url in urls:
+            # Ensure URL has proper scheme for sanitize_domain
+            domain = sanitize_domain(url)
+            site_dir = sites_dir / domain
+            if site_dir.exists() and site_dir.is_dir():
+                try:
+                    shutil.rmtree(site_dir)
+                    logger.info(f"Removed site directory: {site_dir}")
+                except Exception as e:
+                    logger.error(f"Failed to remove directory {site_dir}: {str(e)}", exc_info=True)
+        urls_from_command_line = True
     else:
         # Load from sites_to_scrape.txt
         sites_file = Path('sites_to_scrape.txt')
@@ -355,7 +359,8 @@ def main():
             logger.error(f"Failed to read sites_to_scrape.txt: {str(e)}", exc_info=True)
             return
     
-    cleanup_orphaned_directories(urls)
+    if not urls_from_command_line:
+        cleanup_orphaned_directories(urls)
     
     logger.info(f"Processing {len(urls)} URL(s)...")
     

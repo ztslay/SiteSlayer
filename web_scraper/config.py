@@ -2,8 +2,6 @@
 Configuration management for SiteSlayer
 """
 
-import tempfile
-import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -20,15 +18,6 @@ class Config:
         self.timeout_reduced = False  # Flag to track if we've reduced timeout due to slow site
         self.delay_between_requests = 1.0
         self.max_concurrent_requests = 20
-        
-        # Output Settings - Use OS temporary directory
-        temp_base = Path(tempfile.gettempdir())
-        
-        # Create a sanitized directory name from the domain
-        domain = sanitize_domain(target_url)
-        self.output_dir = temp_base / 'siteslayer' / domain
-
-        self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Link Filtering
         self.exclude_extensions = [
@@ -47,18 +36,6 @@ class Config:
         
         # JavaScript Rendering Settings
         self.js_wait_time = 3
-
-    
-    def cleanup_temp_dir(self):
-        """Remove the temporary output directory and all its contents"""
-        try:
-            if self.output_dir.exists():
-                shutil.rmtree(self.output_dir)
-                return True
-        except Exception as e:
-            # Log error but don't raise - cleanup failures shouldn't break the program
-            return False
-        return False
 
 def sanitize_domain(url):
     """Sanitize a URL to create a safe directory name"""

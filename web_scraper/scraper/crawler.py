@@ -8,10 +8,9 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright._impl._errors import Error as PlaywrightError
-from utils.fetch import get_browser_instance
+from utils.fetch import get_browser_instance, create_browser_context, navigate_with_fallbacks
 from utils.logger import setup_logger
-from utils.markdown_utils import html_to_markdown
-from config import USER_AGENT
+from utils.markdown_utils import html_to_markdown, clean_soup
 
 logger = setup_logger(__name__)
 
@@ -66,11 +65,8 @@ async def _process_single_url(url, index, total, visited_urls, visited_lock, con
         timeout_occurred = False
         
         try:
-            # Create context with user agent (isolates cookies/cache)
-            context = await browser.new_context(
-                user_agent=USER_AGENT,
-                viewport={'width': 1920, 'height': 1080}
-            )
+            # Create context with user agent and SSL error bypass
+            context = await create_browser_context(browser)
             
             # Create page and navigate
             page = await context.new_page()
@@ -78,19 +74,12 @@ async def _process_single_url(url, index, total, visited_urls, visited_lock, con
             # Use reduced timeout (4 seconds) if we've already hit a timeout for this site
             effective_timeout = 4 if getattr(config, 'timeout_reduced', False) else getattr(config, 'timeout', 15)
             
-            try:
-                response = await page.goto(url, wait_until='networkidle', timeout=effective_timeout * 1000)
-                if response and response.status == 403:
-                    logger.warning(f"Received 403 Forbidden status for {url}")
-                    return None
-            except PlaywrightTimeoutError as e:
-                timeout_occurred = True
-                # Mark config to use reduced timeout for subsequent pages
-                if not getattr(config, 'timeout_reduced', False):
-                    config.timeout_reduced = True
-                    logger.info(f"Site appears slow - reducing timeout to 4 seconds for remaining pages")
-                logger.warning(f"Timeout waiting for networkidle on {url}: {str(e)}")
-                logger.info("Attempting to capture partial HTML content that has already loaded...")
+            response, url, timeout_occurred = await navigate_with_fallbacks(
+                page, url, effective_timeout, config, raise_on_403=False
+            )
+            
+            if response is None:
+                return None
             
             # Get the rendered HTML (even if timeout occurred)
             html_content = await page.content()
@@ -122,29 +111,13 @@ async def _process_single_url(url, index, total, visited_urls, visited_lock, con
         
         # Parse and extract content
         soup = BeautifulSoup(html_content, 'lxml')
+        clean_soup(soup)
         
         # Extract title
         title = soup.title.string if soup.title else "No title"
         
-        # Remove unwanted elements
-        for element in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'noscript']):
-            element.decompose()
-        
-        # Find main content
-        main_content = (
-            soup.find('main') or
-            soup.find('article') or
-            soup.find('div', {'id': 'content'}) or
-            soup.find('div', {'class': ['content', 'main-content', 'post-content']}) or
-            soup.find('body')
-        )
-        
-        if not main_content:
-            logger.warning(f"No main content found for: {url}")
-            return None
-        
         # Convert to markdown
-        markdown_content = html_to_markdown(str(main_content), url)
+        markdown_content = html_to_markdown(str(soup))
         
         # Check minimum content length
         if len(markdown_content) < config.min_content_length:

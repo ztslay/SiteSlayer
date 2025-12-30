@@ -1,29 +1,28 @@
 FROM: Zac Slay <zac@slaydigital.ai>
 TO: Big Thunder Events <info@bigthunderevents.com>
-SUBJECT: Help Your Customers Find the Perfect Rental—Instantly with an AI Chat Agent
+SUBJECT: Helping Your Customers Get Answers Faster at Big Thunder Events
 
 -----------------------------------------
 Hi Big Thunder Events team,
 
-Your website does an awesome job showcasing a huge variety of inflatables, carnival rides, and event options for every kind of party. With so many services, we know customers can get stuck searching or have repeat questions—especially during busy times.
+I love your commitment to making every event in Nashville and beyond a big success—your reviews and your focus on customer service really stand out.
 
-That’s why I thought you might like to see something new: at SlayDigital.ai, we build simple AI web agents that let your visitors chat directly with your site’s info—making it easy for anyone to find what they need.
+I'm Zac from SlayDigital.ai. We build custom, easy-to-use AI chat agents that live right on your website and help visitors get fast answers by chatting directly with your own content—no AI buzzwords, just practical help.
 
-Here’s a hands-on example using a mock version of your site:  
+I put together a quick mock-up of your website so you can see this in action:  
 https://slaydigital.fly.dev/site/www_bigthunderevents_com  
-Just click the chat icon in the lower right corner, type a question, and the agent replies instantly using your own site content.
+Just click the chat icon in the bottom-right corner, and type any question—your visitors get instant answers pulled from your site’s info.
 
 You can try asking things like:
-- “Which bounce houses are best for toddlers?”
-- “Do you deliver water slides to Franklin, TN?”
-- “How much does a mechanical bull rental cost, and what’s included?”
-- “What’s your bad weather and cancellation policy?”
-- “Can you help with park or corporate event paperwork like insurance certificates?”
+- What areas do you deliver to?
+- How do I book a bounce house for a birthday party?
+- Are your rentals insured and do rates include setup?
+- Can you handle large events like school fairs or corporate picnics?
+- What’s included with the party packages?
 
-It’s a fast, friendly way to reduce phone tag and guide more visitors to a booking—especially when you offer as much as Big Thunder Events does.
+If you'd like to see how this agent could help reduce calls, speed up bookings, or answer common questions (especially during busy weekends), just reply here and I’ll be happy to chat.
 
-Would you be open to a quick chat? Happy to answer any questions, or just hear what you think.
+Thanks for making parties so easy for Nashville families!
 
-All the best,  
-Zac  
-Founder, SlayDigital.ai
+Best,  
+Zac

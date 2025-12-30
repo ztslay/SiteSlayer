@@ -7,10 +7,15 @@ on:
       - main
     paths-ignore:
       - 'sites_to_scrape.txt'
+  workflow_run:
+    workflows: ["Scrape Sites on Update"]
+    types:
+      - completed
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4

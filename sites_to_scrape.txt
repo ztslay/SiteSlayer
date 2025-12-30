@@ -1,27 +1,19 @@
 # Note, you can make comments in this file, just place comment text after the # character
-https://www.bigthunderevents.com # you can comment after websites too
-https://www.mtjulietdentalgroup.com
-https://www.bellemeadedental.com/
-https://www.gulchdentalstudio.com/
-https://nashvillesmilesup.com/
-https://enfdentistry.com/
-https://ifdnashville.com/
-https://musiccitydental.com/
-https://dentistryofnashville.com/
-https://richlandcreekdentistry.com/
-https://lifetimedentistrytn.com/
-https://arkhealthfoundation.com/
-https://nolensvillefamilydentistry.com/
-https://millcreekdental.net/
-https://www.gatewayfamilydentist.com/
-https://www.murfreedental.com/
-https://katherinehalldds.com/
-https://theclaylady.com/
-http://briarcliffdentalgroup.com
-http://smileforeveratlanta.com
-http://atlantadentalcenter.com
-http://atlgentledental.com
-http://dentalassociatesofatlanta.com
-http://dentalassociatesofbuckhead.com
-http://poncedentalstudio.com
-http://smilegeorgia.com
+www.bigthunderevents.com # you can comment after websites too
+enfdentistry.com/
+ifdnashville.com/
+musiccitydental.com/
+dentistryofnashville.com/
+richlandcreekdentistry.com/
+lifetimedentistrytn.com/
+arkhealthfoundation.com/ # test one
+nolensvillefamilydentistry.com/
+millcreekdental.net/
+www.gatewayfamilydentist.com/
+www.murfreedental.com/
+katherinehalldds.com/
+theclaylady.com/
+www.northdentalprofessionals.com/
+www.downtown-dental.com/
+tnfamilydental.com/
+www.beautifulsmiles.org
