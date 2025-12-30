@@ -1,0 +1,19 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Abtin Shahriari <info@oralsurgeonatlanta.com>
+SUBJECT: Mock chat for GAOFS — try a demo answering All‑On‑4, stem‑cell & sedation FAQs
+-----------------------------------------
+
+Hi Dr. Shahriari — I love how GAOFS emphasizes patient comfort (AAAHC-certified facility and stem‑cell preservation on wisdom‑tooth cases — great differentiators).
+
+I run SlayDigital.ai. We build simple, custom AI web agents that sit on your site and answer visitor questions using the content you already have — so prospective patients get fast, accurate answers without extra staff time.
+
+I put together a quick mock of your site so you can try one: https://slaydigital.fly.dev/site/oralsurgeonatlanta_com. There’s a chat icon in the bottom-right — click it to open the chat and ask questions; the agent replies using your site’s content.
+
+You can try asking things like:
+- Do you offer stem cell preservation with wisdom tooth extractions, and how does it work?
+- Am I a candidate for All‑On‑4 or Teeth‑in‑an‑Hour, and what does the timeline look like?
+- What sedation options do you provide and what should I expect for recovery?
+- Do you accept my insurance / what are payment and financing options for implants?
+- Are you taking new patients in Buckhead or Cumming, and how quickly can I get an appointment?
+
+If it’s useful I can leave the demo live for a week and share a short note on common visitor questions we see. Would you be open to a 10‑minute call this week to walk through it? No obligation — just to show whether this could cut down phone inquiries and speed up bookings.

@@ -1,0 +1,19 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Aaron Schwartz <frontdesk@schwartzkidsdentistry.com>
+SUBJECT: Quick demo — on-site chat to answer parents’ frenectomy & first-visit questions
+-----------------------------------------
+
+Hi Dr. Schwartz — love the family-first tone on your site and the clear info you give parents about laser frenectomy and same‑day care.
+
+I run SlayDigital.ai — we build small, custom AI chat agents that live on practice websites and answer visitor questions directly from the content you already have (no confusing setup, no fluff). I made a quick mock of your site so you can see how it works: https://slaydigital.fly.dev/site/schwartzkidsdentistry_com
+
+There’s a chat icon in the bottom‑right — click it to open the box and type a question; the agent replies using info from your site.
+
+You can try asking things like:
+- “Do you offer same‑day consult + treatment for a tongue‑tie, and how quickly could we be seen?”
+- “What age can a baby have a LightScalpel CO2 frenectomy here (and how long is the procedure)?”
+- “Which insurances do you take, and do you help submit frenectomy claims to medical insurance?”
+- “What should I expect on the day of the procedure — pain, anesthesia, feeding afterward?”
+- “What should we bring to our child’s first visit and how do I schedule one?”
+
+If this looks useful, I can connect a tailored version to your live site for a short trial and tweak answers to match how you talk to parents — no obligation. Want me to set that up or show you a 10‑minute walkthrough?

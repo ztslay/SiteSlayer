@@ -1,0 +1,20 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Amanda Sengel <info@childrensdentistryatlanta.com>
+SUBJECT: A small chat tool to answer parents’ top questions on your site
+
+-----------------------------------------
+
+Hi Dr. Sengel — I really like how Children’s Dentistry of Atlanta emphasizes gentle first visits and care for patients with special needs. That tone makes it clear families are in good hands.
+
+I’m Zac from SlayDigital.ai. We build simple, custom AI web agents that embed on a practice website and answer visitor questions using the content already on the site — helping reduce repeat calls and making it easier for parents to book and prepare.
+
+I set up a quick mock version for your site so you can see it in action: https://slaydigital.fly.dev/site/drjanicelee_com. Click the chat icon in the bottom-right to open the chat box — type a question and the agent pulls answers from your site content.
+
+You can try asking things like:
+- How do I book a first appointment for a 2-year-old, and what should we expect?
+- Do you accept my child’s dental insurance, and how does your billing/reimbursement process work?
+- What sedation options do you offer for anxious kids and when are they recommended?
+- What accommodations do you provide for children with special needs?
+- Where is your office, is parking available, and what are your office hours?
+
+If this looks useful, I can prototype the same agent on your live site (no dev work on your side) or hop on a 15‑minute call to walk through results and common parent questions. Interested?

@@ -1,0 +1,19 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Cheria O'Neal <office@onealperio.com>
+SUBJECT: Make common patient questions easier for O'Neal Periodontics
+-----------------------------------------
+
+Hi Dr. O'Neal — I enjoyed how clearly your site explains LANAP, implants and grafting — patients must appreciate that calm, detail-oriented tone.
+
+I run SlayDigital.ai. We build simple, custom AI chat agents that sit on a practice website and answer visitor questions using the content you already have — fewer phone calls, faster patient decisions, and clearer expectations without adding more work for your team.
+
+I made a quick mock demo for your site: https://slaydigital.fly.dev/site/onealperio_com. There’s a chat icon in the bottom-right — click it to open the chat box and type a question; the agent replies using information from your site.
+
+You can try asking things like:
+- “Do you accept my dental insurance and do you file claims?”
+- “How long is recovery after LANAP or an implant placement?”
+- “What financing options (CareCredit) do you offer and typical cost range?”
+- “What should I bring to my first implant consultation and how many visits are usually needed?”
+- “Where do I park and what are your office hours?”
+
+If you like it, I can enable a no-risk trial on your live site or show you a 5‑minute walkthrough. Would you prefer a quick demo or I set up the trial?

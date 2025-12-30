@@ -1,0 +1,19 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dental Care 24/7 <info@dentalcare247.com>
+SUBJECT: Demo: on-site chat to answer walk-ins, $99 exam & financing questions
+-----------------------------------------
+
+Hi — love that Dental Care 24/7 offers a $99 exam with X‑ray and 24/7 emergency coverage — that’s exactly the kind of service people call and text about a dozen times a day.
+
+I’m Zac, founder of SlayDigital.ai. We build small, custom AI chat agents that sit on your site and answer visitor questions using the content you already have — no messy portals or extra work for your team. They cut repetitive calls, speed up bookings, and help patients know what to expect before they arrive.
+
+I made a quick mock version for your site: https://slaydigital.fly.dev/site/dentalcare247_com. Click the chat icon in the bottom-right to open the box; type a question and the agent will reply using your site content.
+
+You can try asking things like:
+- Do you accept insurance or how does your direct‑pay process work?
+- Is the Orlando location open 24/7 right now and do you accept walk‑ins?
+- Can I get a same‑day extraction or root canal for an emergency?
+- What financing or payment plans do you offer for larger treatments?
+- Do you repair dentures/partials same day and how fast can it be done?
+
+If you want, I can swap this demo onto one of your live location pages for a short trial and share simple pricing — no obligation. Interested? Reply and I’ll set it up.

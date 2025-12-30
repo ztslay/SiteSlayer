@@ -1,0 +1,23 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Alan Goodman <goodendo1@gmail.com>
+SUBJECT: Mock chat for goodmanendo.com — quick way to answer patient FAQs
+-----------------------------------------
+
+Hi Dr. Goodman —
+
+I like that Goodman Endodontics focuses on keeping patients’ natural teeth — that clarity makes for great patient experience. I build simple, custom AI web agents that let website visitors ask plain-language questions and get answers pulled from your own pages (no confusing sales pitch, just useful help).
+
+I put together a mock version for your site here: https://slaydigital.fly.dev/site/goodmanendo_com. There’s a chat icon in the bottom-right corner — click it to open the chat box and type questions; the agent answers using information already on your site.
+
+You can try asking things like:
+- Do you accept my dental insurance and how do you handle claims?
+- What should I bring and do before my first appointment (forms, ID, payment)?
+- Where exactly is your entrance and where should I park at 999 Peachtree?
+- What can I expect after a root canal — typical recovery and follow-up?
+- Do you offer retreatment or endodontic surgery if a previous root canal fails?
+
+If this looks useful, I can customize the wording (hours, insurance names, payment options) or install a no-risk trial on your live site — happy to jump on a 15‑minute call or send simple next steps by email. Would you like me to proceed?
+
+— Zac Slay
+Founder, SlayDigital.ai
+zac@slaydigital.ai

@@ -1,0 +1,25 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Albert Nordone <office@dentistrydifference.com>
+SUBJECT: Demo chat for Dentistry With a Difference — answers new-patient & treatment questions
+-----------------------------------------
+
+Hi Dr. Nordone — congrats on being voted Dunwoody’s Best Dentists four years running. Nice work.
+
+I run SlayDigital.ai — we build simple, custom AI chat agents that sit on your website and answer visitor questions using the content you already have (no heavy setup, no fluff).
+
+I put together a quick mock of your site with an agent here: https://slaydigital.fly.dev/site/dentistrydifference_com. Click the chat icon in the bottom-right to open the box and type a question — the agent answers using info already on your site.
+
+You can try asking things like:
+- “How do I book a new patient appointment and what should I bring?”
+- “Do you offer sedation for anxious patients and what are the options?”
+- “What financing options do you accept (CareCredit/Cherry) and how do payment plans work?”
+- “How long does Six Month Smiles usually take and is it right for me?”
+- “I have a broken tooth — do you offer emergency appointments or same-day care?”
+
+Why it helps: the agent cuts repetitive calls, guides new patients through forms/financing, and nudges people to book — without adding staff work.
+
+If you’d like, I can swap in custom messaging for your team and show a live version on your site — 15 minutes is all it takes. Want to set a quick time, or should I send a short plan and pricing?
+
+Thanks,
+Zac Slay
+zac@slaydigital.ai
