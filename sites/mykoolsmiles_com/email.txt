@@ -1,0 +1,20 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Kool Smiles Team <info@mykoolsmiles.com>
+SUBJECT: A small chat agent to answer parents’ top questions on Kool Smiles
+
+-----------------------------------------
+
+Hi Kool Smiles team — love the Kids Club and the activity sheets (really family-first content).
+
+I’m Zac, founder of SlayDigital.ai. We build simple, custom AI chat agents that sit on a website and answer visitor questions using only the site’s content — so parents can quickly find locations, insurance details, emergency guidance, appointment info, etc., without extra work for your staff.
+
+I made a quick mock of your site with a demo agent you can try here: https://slaydigital.fly.dev/site/mykoolsmiles_com. Click the chat icon in the bottom-right to open the box and just type a question — the agent pulls answers from pages like Kids Club, Services, FAQs and Locations.
+
+You can try asking things like:
+- Do you accept Medicaid at a Kool Smiles location near 21224 (or my ZIP)?  
+- What should I do after my child’s wisdom tooth extraction / how long is recovery?  
+- How do I sign up for the Kids Club and download activity sheets?  
+- Do you offer same‑day or weekend appointments at nearby offices?  
+- What financing options are available for Reveal Clear Aligners or braces?
+
+If this looks useful, I can build a production-ready agent for one of your locations (no dev lift on your side) and show a 5–10 minute demo next week. Want me to set that up?
