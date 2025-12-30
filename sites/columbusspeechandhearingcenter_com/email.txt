@@ -1,0 +1,23 @@
+FROM: Zac Slay <zac@slaydigital.ai>
+TO: Dr. Alice Cellino <acellino@cshcga.com>
+SUBJECT: A quick idea to answer common patient questions on your site
+
+-----------------------------------------
+
+Hi Alice — I came across Columbus Speech & Hearing Center and really liked the family-run history and the range of services you offer (speech, audiology, balance and reading therapy — impressive).
+
+I build small, practical AI web agents at SlayDigital.ai that embed on sites and let visitors chat with the content you already have — so common questions get answered instantly without extra work from your staff.
+
+I put together a mock version of your site with a simple demo agent you can try here:
+https://slaydigital.fly.dev/site/columbusspeechandhearingcenter_com
+
+There’s a chat icon in the bottom-right — click it to open a chat box and type questions; the agent answers using information already on the site.
+
+You can try asking things like:
+- Do you accept (or file) Medicare and these specific insurances?
+- What should I bring to my child’s first speech or audiology appointment?
+- What ages do you treat for reading/dyslexia and how often is the intensive plan?
+- What does a vestibular/balance evaluation involve and how long does it take?
+- Do you offer hearing aid trials, fittings, and follow-up pricing details?
+
+If this looks useful, I can add a tailored agent to your live site and pre-load answers from your pages — quick 15-minute call to show you?
