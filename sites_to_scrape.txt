@@ -1,19 +1,12 @@
 # Note, you can make comments in this file, just place comment text after the # character
-www.bigthunderevents.com # you can comment after websites too
-enfdentistry.com/
-ifdnashville.com/
-musiccitydental.com/
-dentistryofnashville.com/
-richlandcreekdentistry.com/
-lifetimedentistrytn.com/
-arkhealthfoundation.com/ # test one
-nolensvillefamilydentistry.com/
-millcreekdental.net/
-www.gatewayfamilydentist.com/
-www.murfreedental.com/
-katherinehalldds.com/
-theclaylady.com/
-www.northdentalprofessionals.com/
-www.downtown-dental.com/
-tnfamilydental.com/
-http://mykoolsmiles.com
+metrodentalatlanta.com
+aapollodental.com
+dentalcare247.com
+dentistrydifference.com
+onealperio.com
+schwartzkidsdentistry.com
+oralsurgeonatlanta.com
+peakatlanta.com
+drjanicelee.com
+goodmanendo.com
+mykoolsmiles.com
