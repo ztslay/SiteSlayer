@@ -57,7 +57,7 @@ Return a list of full URL strings."""
 
         # Try using .parse() method if available (OpenAI SDK >= 1.0)
         completion = await client.chat.completions.parse(
-            model=config.ai_model,
+            model='gpt-5-mini-2025-08-07',
             messages=[
                 {"role": "system", "content": "You are a web content analysis assistant. Extract only the most relevant URLs from the content. Limit the number of URLs to 15 (but you can return less if there are not enough relevant urls). Return the urls in order of relevance."},
                 {"role": "user", "content": prompt}

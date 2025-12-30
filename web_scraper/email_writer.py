@@ -28,6 +28,7 @@ class EmailWriter:
 
 
         self.agent = Agent(
+            model='gpt-5-mini-2025-08-07',
             name="Email Writer", 
             instructions=f"""\
 **Role**

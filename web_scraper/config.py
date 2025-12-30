@@ -32,7 +32,6 @@ class Config:
         
         # AI Settings
         self.use_ai_ranking = True
-        self.ai_model = 'gpt-5-mini-2025-08-07'
         
         # JavaScript Rendering Settings
         self.js_wait_time = 3
