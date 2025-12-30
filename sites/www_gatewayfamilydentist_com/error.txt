@@ -1,0 +1,20 @@
+ERROR REPORT
+==================================================
+Timestamp: 2025-12-30 16:42:09
+
+Error Message:
+HTML harvesting failed with exception: Received 403 Forbidden status for http://www.gatewayfamilydentist.com/
+
+Exception Type: RuntimeError
+
+Traceback:
+Traceback (most recent call last):
+  File "/home/runner/work/SiteSlayer/SiteSlayer/web_scraper/main.py", line 100, in execute
+    html_file = await harvest_html(target_url, config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/SiteSlayer/SiteSlayer/web_scraper/harvester/harvester.py", line 55, in harvest_html
+    response, url, timeout_occurred = await navigate_with_fallbacks(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/SiteSlayer/SiteSlayer/web_scraper/utils/fetch.py", line 161, in navigate_with_fallbacks
+    raise RuntimeError(error_msg)
+RuntimeError: Received 403 Forbidden status for http://www.gatewayfamilydentist.com/
