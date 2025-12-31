@@ -11,11 +11,12 @@ on:
     workflows: ["Scrape Sites on Update"]
     types:
       - completed
+  workflow_dispatch:
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
